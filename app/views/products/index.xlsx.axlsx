@@ -1,0 +1,10 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Products") do |sheet|
+  sheet.add_row ['Title', 'Price', 'Department', 'Material']
+  @products.each do |product|
+    sheet.add_row [product.title, product.price, product.department, product.material]
+  end
+  sheet.auto_filter = "A1:D31"
+  sheet.sort_state()
+
+end
