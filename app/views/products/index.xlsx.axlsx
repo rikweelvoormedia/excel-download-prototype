@@ -1,10 +1,16 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "Products") do |sheet|
-  sheet.add_row ['Title', 'Price', 'Department', 'Material']
+  sheet.add_row ['ID', 'Title', 'Price', 'Department', 'Material']
   @products.each do |product|
-    sheet.add_row [product.title, product.price, product.department, product.material]
+    sheet.add_row [{0 => "high", 1 => "medium", 2 => "low"}[rand(3)], product.title, product.price, product.department, product.material]
   end
-  sheet.auto_filter = "A1:D31"
-  sheet.auto_filter.sort_state = "A1:D31"
-
+  sheet.auto_filter = "A1:E31"
+  sheet.auto_filter.sort_state.add_sort_condition(4, true)
+  sheet.auto_filter.sort_state.add_sort_condition(0, true, ["low", "medium", "high"])
 end
+
+# priority = {0 => "high", 1 => "medium", 2 => "low"}
+
+# sort_state(ref = "", sort_conditions_array)
+
+# sort_conditions_array = [ [col_id, decending, options = {}], [[col_id, decending, options = {}]] ]
